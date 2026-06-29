@@ -1,0 +1,131 @@
+@model OnlineShop.Admin.ViewModels.Product.UpdateProductVm
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "ویرایش محصول";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/product.css" />
+}
+
+<div class="card form-card">
+
+    <div class="card-body">
+
+        <ul class="nav nav-tabs mb-4" id="productTabs">
+
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#info">
+                    اطلاعات محصول
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#images">
+                    تصاویر
+                </button>
+            </li>
+
+        </ul>
+
+        <form asp-action="Edit" method="post">
+
+            <input asp-for="Id" type="hidden" />
+
+            <div class="tab-content">
+
+                <!-- TAB 1 -->
+                <div class="tab-pane fade show active" id="info">
+
+                    <partial name="_ProductForm" model="Model" />
+
+                </div>
+
+                <!-- TAB 2 -->
+                <div class="tab-pane fade" id="images">
+
+                    <h5 class="mb-3">مدیریت تصاویر</h5>
+
+                    <div class="row">
+
+                        @foreach (var img in Model.ProductImages)
+                        {
+                            <div class="col-md-3 mb-3" id="img-@img.Id">
+
+                                <div class="image-card">
+
+                                    <img src="@img.ImageUrl" class="img-fluid rounded" />
+
+                                    <div class="mt-2">
+
+                                        @if (!img.IsMain)
+                                        {
+                                            <button type="button"
+                                                    class="btn btn-sm btn-primary set-main"
+                                                    data-id="@img.Id"
+                                                    data-product="@Model.Id">
+                                                ⭐ اصلی
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success">اصلی</span>
+                                        }
+
+                                        <button type="button"
+                                                class="btn btn-sm btn-danger delete-image"
+                                                data-id="@img.Id"
+                                                data-product="@Model.Id">
+                                            حذف
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+
+                    </div>
+
+                    <hr />
+
+                    <!-- Upload new images -->
+                    <div class="mb-3">
+
+                        <label class="form-label">افزودن تصویر جدید</label>
+
+                        <input type="file"
+                               id="imageInput"
+                               multiple
+                               class="form-control" />
+
+                        <div id="previewContainer" class="preview-container mt-3"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">
+                    ذخیره تغییرات
+                </button>
+
+                <a  asp-area="Admin"
+                    asp-action="Index" class="btn btn-outline-secondary">
+                    بازگشت
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}

@@ -1,0 +1,153 @@
+@model OnlineShop.Admin.ViewModels.Order.OrderDetailsVm
+@using OnlineShop.Models
+
+@{
+    ViewData["Title"] = "جزئیات سفارش";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/order.css"/>
+}
+
+<div class="page-header">
+
+    <h3>سفارش #@Model.Id</h3>
+
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        بازگشت
+    </a>
+
+</div>
+
+<div class="row g-4">
+
+    <!-- LEFT: INFO -->
+    <div class="col-lg-4">
+
+        <div class="card info-card">
+
+            <div class="card-body">
+
+                <h5 class="mb-3">اطلاعات سفارش</h5>
+
+                <p><strong>کاربر:</strong> @Model.UserName</p>
+
+                <p><strong>مبلغ کل:</strong> @Model.TotalPrice.ToString("N0") تومان</p>
+
+                <p>
+                    <strong>وضعیت:</strong>
+
+                    @{
+                        var badge = Model.Status switch
+                        {
+                            OrderStatus.Pending => "bg-warning text-dark",
+                            OrderStatus.Paid => "bg-success",
+                            OrderStatus.Processing => "bg-primary",
+                            OrderStatus.Shipped => "bg-info",
+                            OrderStatus.Cancelled => "bg-danger",
+                            _ => "bg-secondary"
+                        };
+                    }
+
+                    <span class="badge @badge">
+                        @Model.Status
+                    </span>
+                </p>
+
+                <p><strong>تاریخ:</strong> @Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</p>
+
+            </div>
+
+        </div>
+
+        <!-- CHANGE STATUS -->
+        <div class="card mt-3">
+
+            <div class="card-body">
+
+                <h6 class="mb-3">تغییر وضعیت سفارش</h6>
+
+                <select id="statusSelect" class="form-select mb-2">
+
+                    @foreach (var status in Enum.GetValues<OrderStatus>())
+                    {
+                        <option value="@status" selected="@(Model.Status == status)">
+                            @status
+                        </option>
+                    }
+
+                </select>
+
+                <button class="btn btn-primary w-100" id="changeStatusBtn">
+                    ثبت تغییر
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT: ITEMS -->
+    <div class="col-lg-8">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h5 class="mb-3">آیتم‌های سفارش</h5>
+
+                <table class="table align-middle">
+
+                    <thead>
+                    <tr>
+                        <th>محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت</th>
+                        <th>جمع</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+
+                            <td>@item.ProductName</td>
+
+                            <td>@item.Quantity</td>
+
+                            <td>@item.Price.ToString("N0")</td>
+
+                            <td>
+                                @(item.Price * item.Quantity).ToString("N0")
+                            </td>
+
+                        </tr>
+                    }
+
+                    </tbody>
+
+                </table>
+
+                <hr />
+
+                <div class="text-end">
+
+                    <h5>
+                        جمع کل:
+                        <span class="text-primary">
+                            @Model.TotalPrice.ToString("N0") تومان
+                        </span>
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

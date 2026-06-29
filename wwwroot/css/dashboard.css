@@ -1,0 +1,34 @@
+.stats-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+    transition:.2s;
+}
+
+.stats-card:hover{
+    transform:translateY(-4px);
+}
+
+.primary-card{
+    border-right:5px solid #2563EB;
+}
+
+.warning-card{
+    border-right:5px solid #F59E0B;
+}
+
+.success-card{
+    border-right:5px solid #10B981;
+}
+
+.accent-card{
+    border-right:5px solid #F59E0B;
+}
+
+.dashboard-box{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+}

@@ -1,0 +1,18 @@
+@model OnlineShop.Admin.ViewModels.Category.UpdateCategoryAdminVm
+
+@{
+    ViewData["Title"] = "ویرایش دسته بندی";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/category.css"/>
+}
+
+<form asp-action="Edit">
+
+    <input asp-for="Id" hidden/>
+
+    <partial name="_CategoryForm"/>
+
+</form>

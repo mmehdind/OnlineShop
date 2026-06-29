@@ -1,0 +1,122 @@
+@model OnlineShop.Admin.ViewModels.Order.OrderListAdminVm
+@using OnlineShop.Models
+
+@{
+    ViewData["Title"] = "سفارش‌ها";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/order.css"/>
+}
+
+<div class="page-header">
+
+    <h3>مدیریت سفارش‌ها</h3>
+
+</div>
+
+<!-- FILTER -->
+<div class="card filter-card">
+
+    <div class="card-body">
+
+        <form method="get">
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+
+                    <select name="StatusFilter"
+                            class="form-select">
+
+                        <option value="">همه وضعیت‌ها</option>
+
+                        @foreach (var status in Enum.GetValues<OrderStatus>())
+                        {
+                            <option value="@status"
+                                    selected="@(Model.StatusFilter == status)">
+                                @status
+                            </option>
+                        }
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <button class="btn btn-primary w-100">
+                        فیلتر
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- TABLE -->
+<div class="table-card">
+
+    <table class="table align-middle">
+
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>کاربر</th>
+            <th>مبلغ</th>
+            <th>وضعیت</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+
+                <td>@item.Id</td>
+                <td>@item.UserName</td>
+                <td>@item.TotalPrice.ToString("N0") تومان</td>
+
+                <td>
+                    @{
+                        var badge = item.Status switch
+                        {
+                            "Pending" => "bg-warning text-dark",
+                            "Paid" => "bg-success",
+                            "Processing" => "bg-primary",
+                            "Shipped" => "bg-info",
+                            "Cancelled" => "bg-danger",
+                            _ => "bg-secondary"
+                        };
+                    }
+
+                    <span class="badge @badge">
+                        @item.Status
+                    </span>
+                </td>
+
+                <td>
+
+                    <a asp-action="Details"
+                       asp-route-id="@item.Id"
+                       class="btn btn-outline-info btn-sm">
+                        جزئیات
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+        </tbody>
+
+    </table>
+
+</div>

@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Repositories",
+    "\\Repositories\\Implementations",
+    "\\Repositories\\Interfaces",
+    "\\Services",
+    "\\Services\\Implementations",
+    "\\Services\\Interfaces",
+    "\\ViewModels",
+    "\\ViewModels\\Product"
+  ],
+  "SelectedNode": "\\Services\\Interfaces\\IProductService.cs",
+  "PreviewInSolutionExplorer": false
+}

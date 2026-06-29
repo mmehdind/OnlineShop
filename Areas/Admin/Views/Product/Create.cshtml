@@ -1,0 +1,15 @@
+@model OnlineShop.Admin.ViewModels.Product.ProductCreateVm
+
+@{
+    ViewData["Title"] = "افزودن محصول";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/product.css" />
+}
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+
+    <partial name="_ProductForm" model="Model" />
+
+</form>

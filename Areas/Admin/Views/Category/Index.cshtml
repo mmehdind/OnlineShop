@@ -1,0 +1,97 @@
+@model OnlineShop.Admin.ViewModels.Category.CategoryListAdminVm
+
+@{
+    ViewData["Title"] = "دسته بندی ها";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/category.css"/>
+}
+
+<div class="page-header">
+    <div>
+        <h3>دسته بندی ها</h3>
+    </div>
+
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i>
+        افزودن دسته بندی
+    </a>
+</div>
+
+<div class="row mb-4">
+
+    <div class="col-md-6">
+        <div class="summary-card">
+            <h6>تعداد دسته بندی ها</h6>
+            <h3>@Model.Items.Count</h3>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="summary-card">
+            <h6>تعداد کل محصولات</h6>
+            <h3>@Model.TotalProducts</h3>
+        </div>
+    </div>
+
+</div>
+
+<div class="table-card">
+
+    <table class="table align-middle">
+
+        <thead>
+        <tr>
+            <th>نام</th>
+            <th>Slug</th>
+            <th>تعداد محصولات</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        @foreach (var item in Model.Items)
+        {
+            <tr id="row-@item.Id">
+
+                <td>@item.Name</td>
+
+                <td>@item.Slug</td>
+
+                <td>
+                    <span class="badge bg-primary">
+                        @item.ProductCount
+                    </span>
+                </td>
+
+                <td>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@item.Id"
+                       class="btn btn-warning btn-sm">
+                        ویرایش
+                    </a>
+
+                    <button class="btn btn-danger btn-sm delete-btn"
+                            data-id="@item.Id">
+                        حذف
+                    </button>
+
+                </td>
+
+            </tr>
+        }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/js/category.js"></script>
+}

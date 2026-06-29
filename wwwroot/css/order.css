@@ -1,0 +1,19 @@
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.filter-card,
+.table-card{
+    background:white;
+    border:none;
+    border-radius:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.05);
+    margin-bottom:20px;
+}
+
+.table-card{
+    padding:20px;
+}

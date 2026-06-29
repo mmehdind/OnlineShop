@@ -1,0 +1,144 @@
+@model OnlineShop.ViewModels.Product.ProductDetailsVm
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="product-details">
+
+    <div class="product-grid">
+
+        <!-- IMAGE SECTION -->
+        <div class="product-images">
+
+            <div class="main-image">
+                <img id="mainImage"
+                     src="@Model.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl"
+                     alt="@Model.Name"
+                     onclick="openModal(this.src)" />
+            </div>
+
+            <div class="thumbs">
+                @foreach (var img in Model.Images)
+                {
+                    <img src="@img.ImageUrl"
+                         onclick="changeImage('@img.ImageUrl')" />
+                }
+            </div>
+
+        </div>
+
+        <!-- INFO SECTION -->
+        <div class="product-info">
+
+            <h1>@Model.Name</h1>
+
+            <div class="price">
+                @Model.Price.ToString("N0") تومان
+            </div>
+
+            <div class="meta">
+                <div>دسته: @Model.CategoryName</div>
+                <div>موجودی: @Model.Stock</div>
+            </div>
+
+            <p class="desc">
+                @Model.Description
+            </p>
+
+            <button id="addToCartBtn" class="btn-add">
+                افزودن به سبد خرید
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- RELATED -->
+    @if (ViewBag.RelatedProducts != null)
+    {
+        <div class="related">
+
+            <h2>محصولات مرتبط</h2>
+
+            <div class="related-grid">
+
+                @foreach (var item in (List<OnlineShop.DTOs.Product.ProductDto>)ViewBag.RelatedProducts)
+                {
+                    <a class="related-card"
+                       href="/product/@item.Id/@item.Slug">
+
+                        <img src="@item.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl" />
+
+                        <div>
+                            <h4>@item.Name</h4>
+                            <span>@item.Price.ToString("N0")</span>
+                        </div>
+
+                    </a>
+                }
+
+            </div>
+
+        </div>
+    }
+
+</div>
+
+<!-- MODAL -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <img id="modalImg" />
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+@section Scripts {
+
+<script>
+
+function changeImage(src) {
+    document.getElementById("mainImage").src = src;
+}
+
+function openModal(src) {
+    document.getElementById("imageModal").style.display = "flex";
+    document.getElementById("modalImg").src = src;
+}
+
+function closeModal() {
+    document.getElementById("imageModal").style.display = "none";
+}
+
+document.getElementById("addToCartBtn").addEventListener("click", async function () {
+
+    const btn = this;
+    btn.disabled = true;
+    btn.innerText = "در حال افزودن...";
+
+    const res = await fetch("/cart/add?productId=@Model.Id&quantity=1", {
+        method: "POST"
+    });
+
+    const data = await res.json();
+
+    showToast(data.message);
+
+    btn.disabled = false;
+    btn.innerText = "افزودن به سبد خرید";
+});
+
+function showToast(msg) {
+
+    const toast = document.getElementById("toast");
+    toast.innerText = msg;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
+}
+
+</script>
+
+}

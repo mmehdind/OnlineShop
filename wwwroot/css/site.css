@@ -1,0 +1,148 @@
+body {
+    direction: rtl;
+    text-align: right;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    font-family: Tahoma, Arial;
+}
+
+/* Navbar */
+.navbar-custom {
+    background-color: #1E293B;
+}
+
+.navbar-custom a {
+    color: white !important;
+}
+
+/* Buttons */
+.btn-primary-custom {
+    background-color: #2563EB;
+    border: none;
+    color: white;
+}
+
+.btn-primary-custom:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-accent {
+    background-color: #F59E0B;
+    border: none;
+    color: white;
+}
+
+.btn-accent:hover {
+    background-color: #d97706;
+}
+
+.product-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.price {
+    font-weight: bold;
+    color: #2563EB;
+}
+
+.product-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: .2s;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+}
+
+.product-img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2563EB;
+}
+
+.navbar-custom {
+    background-color: #1E293B;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+}
+
+.language-switcher a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.language-switcher a:hover {
+    color: #F59E0B;
+}
+
+footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    background: #1E293B;
+    color: white;
+}
+
+.footer-text {
+    text-align: center;
+}
+
+.navbar-custom {
+    background-color: #1E293B;
+    min-height: 70px;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: .5px;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #F59E0B !important;
+}
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+}
+
+.language-switcher a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.language-switcher a:hover {
+    color: #F59E0B !important;
+}
+
+.cart-link {
+    font-size: 1.2rem;
+}
+
+.dropdown-menu {
+    border-radius: 12px;
+}

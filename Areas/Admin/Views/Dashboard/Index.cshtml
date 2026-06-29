@@ -1,0 +1,217 @@
+@model OnlineShop.Admin.ViewModels.Dashboard.DashboardVm
+@using OnlineShop.Admin.DTOs.Dashboard
+
+@{
+    ViewData["Title"] = "داشبورد";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/dashboard.css"/>
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>داشبورد مدیریت</h3>
+
+        <select class="form-select w-auto" id="periodSelect">
+            <option selected="@(Model.SelectedPeriod == ChartPeriod.Daily)"/>
+            <option value="Daily">روزانه</option>
+            <option value="Weekly">هفتگی</option>
+            <option value="Monthly">ماهانه</option>
+        </select>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card">
+                <h6>محصولات</h6>
+                <h3>@Model.Stats.TotalProducts</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card">
+                <h6>دسته بندی ها</h6>
+                <h3>@Model.Stats.TotalCategories</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card">
+                <h6>کاربران</h6>
+                <h3>@Model.Stats.TotalUsers</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card">
+                <h6>سفارش های امروز</h6>
+                <h3>@Model.Stats.TodayOrders</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card warning-card">
+                <h6>در انتظار</h6>
+                <h3>@Model.Stats.PendingOrders</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card primary-card">
+                <h6>در حال پردازش</h6>
+                <h3>@Model.Stats.ProcessingOrders</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card success-card">
+                <h6>درآمد کل</h6>
+                <h3>@Model.Stats.TotalRevenue.ToString("N0")</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card accent-card">
+                <h6>درآمد ماه</h6>
+                <h3>@Model.Stats.MonthlyRevenue.ToString("N0")</h3>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row mt-5 g-4">
+
+        <div class="col-lg-6">
+            <div class="dashboard-box">
+                <h5>تعداد سفارش ها</h5>
+                <canvas id="ordersChart"></canvas>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="dashboard-box">
+                <h5>فروش</h5>
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row mt-5 g-4">
+
+        <div class="col-lg-8">
+            <div class="dashboard-box">
+
+                <h5 class="mb-4">آخرین سفارش ها</h5>
+
+                <table class="table align-middle">
+
+                    <thead>
+                    <tr>
+                        <th>شماره</th>
+                        <th>کاربر</th>
+                        <th>مبلغ</th>
+                        <th>وضعیت</th>
+                        <th>تاریخ</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    @foreach (var item in Model.RecentOrders)
+                    {
+                        <tr>
+
+                            <td>#@item.Id</td>
+
+                            <td>@item.UserName</td>
+
+                            <td>@item.TotalPrice.ToString("N0")</td>
+
+                            <td>
+                                @{
+                                    var badgeClass = item.Status switch
+                                    {
+                                        "Pending" => "bg-warning text-dark",
+                                        "Paid" => "bg-success",
+                                        "Processing" => "bg-primary",
+                                        "Shipped" => "bg-info",
+                                        "Cancelled" => "bg-danger",
+                                        _ => "bg-secondary"
+                                    };
+
+                                    var statusText = item.Status switch
+                                    {
+                                        "Pending" => "در انتظار پرداخت",
+                                        "Paid" => "پرداخت شده",
+                                        "Processing" => "در حال پردازش",
+                                        "Shipped" => "ارسال شده",
+                                        "Cancelled" => "لغو شده",
+                                        _ => item.Status
+                                    };
+                                }
+
+                                <span class="badge @badgeClass px-3 py-2 rounded-pill">
+                                    @statusText
+                                </span>
+
+                            </td>
+
+                            <td>
+                                @item.CreatedAt.ToString("yyyy/MM/dd")
+                            </td>
+
+                        </tr>
+                    }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-box">
+
+                <h5 class="mb-4">محصولات کم موجود</h5>
+
+                <table class="table">
+
+                    <tbody>
+
+                    @foreach (var item in Model.LowStockProducts)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td class="text-danger fw-bold">
+                                @item.Stock
+                            </td>
+                        </tr>
+                    }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/dashboard.js"></script>
+}

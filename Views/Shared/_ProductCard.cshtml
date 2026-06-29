@@ -1,0 +1,54 @@
+@model OnlineShop.ViewModels.Product.ProductItemVm
+
+<div class="product-card">
+
+    <div class="image-box">
+
+        <img src="@Model.ImageUrl"
+             alt="@Model.Name" />
+
+    </div>
+
+    <div class="product-body">
+
+        <h3 class="product-title">
+            @Model.Name
+        </h3>
+
+        <div class="product-meta">
+
+            <span class="price">
+                @Model.Price.ToString("N0") تومان
+            </span>
+
+        </div>
+
+        <div class="product-actions">
+
+            <a asp-controller="Product"
+               asp-action="Details"
+               asp-route-id="@Model.Id"
+               asp-route-slug="@Model.Slug"
+               class="btn-details">
+
+                Details
+
+            </a>
+
+            <form asp-controller="Cart"
+                  asp-action="Add"
+                  method="post">
+
+                <input type="hidden" name="productId" value="@Model.Id" />
+
+                <button type="submit" class="btn-cart">
+                    Add to Cart
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

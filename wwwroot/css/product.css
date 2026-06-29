@@ -1,0 +1,113 @@
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.filter-card,
+.table-card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+    background:white;
+    margin-bottom:25px;
+}
+
+.table-card{
+    padding:20px;
+}
+
+.product-image{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.btn-group{
+    gap:10px;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+.form-card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+    padding:20px;
+}
+
+.preview-container{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.preview-container img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:12px;
+    border:2px solid #eee;
+}
+
+.image-card{
+    background:white;
+    padding:10px;
+    border-radius:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+    text-align:center;
+}.form-card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+    padding:20px;
+}
+
+.preview-container{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.preview-container img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:12px;
+    border:2px solid #eee;
+}
+
+.image-card{
+    background:white;
+    padding:10px;
+    border-radius:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+    text-align:center;
+}
+
+.nav-tabs .nav-link{
+    color:#1E293B;
+    border-radius:12px 12px 0 0;
+}
+
+.nav-tabs .nav-link.active{
+    background:#2563EB;
+    color:white;
+    border:none;
+}
+
+.tab-content{
+    padding-top:20px;
+}
+
+.image-card{
+    transition:.2s;
+}
+
+.image-card:hover{
+    transform:translateY(-3px);
+}

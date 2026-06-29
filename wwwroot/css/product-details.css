@@ -1,0 +1,152 @@
+.product-details {
+    padding: 30px 0;
+}
+
+/* GRID */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+/* MAIN IMAGE */
+.main-image img {
+    width: 100%;
+    border-radius: 12px;
+    cursor: zoom-in;
+}
+
+/* THUMBS */
+.thumbs {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.thumbs img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.thumbs img:hover {
+    border-color: #2563EB;
+}
+
+/* INFO */
+.product-info h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2563EB;
+    margin-bottom: 15px;
+}
+
+.meta {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.desc {
+    line-height: 1.8;
+    color: #333;
+}
+
+/* BUTTON */
+.btn-add {
+    background: #F59E0B;
+    border: none;
+    padding: 12px 18px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-add:hover {
+    background: #d97706;
+}
+
+/* RELATED */
+.related {
+    margin-top: 60px;
+}
+
+.related h2 {
+    margin-bottom: 20px;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.related-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    transition: 0.2s;
+}
+
+.related-card:hover {
+    transform: translateY(-4px);
+}
+
+.related-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+/* TOAST */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #1E293B;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}

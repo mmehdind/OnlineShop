@@ -1,0 +1,75 @@
+@model OnlineShop.Admin.ViewModels.Product.ProductBaseVm
+
+<div class="card form-card">
+
+    <div class="card-body">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <!-- Name -->
+        <div class="mb-3">
+            <label class="form-label">نام محصول</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label class="form-label">توضیحات</label>
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+
+            <!-- Price -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label">قیمت</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <!-- Stock -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label">موجودی</label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label class="form-label">دسته‌بندی</label>
+            <select asp-for="CategoryId"
+                    asp-items="Model.Categories"
+                    class="form-select">
+                <option value="">انتخاب کنید</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <!-- Images -->
+        <div class="mb-3">
+            <label class="form-label">تصاویر محصول</label>
+
+            <input  asp-for="Images"
+                    type="file"
+                    class="form-control"
+                    multiple />
+
+            <div id="previewContainer" class="preview-container mt-3"></div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            ذخیره
+        </button>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            بازگشت
+        </a>
+
+    </div>
+
+</div>

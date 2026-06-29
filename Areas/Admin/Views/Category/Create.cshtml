@@ -1,0 +1,16 @@
+@model OnlineShop.Admin.ViewModels.Category.CreateCategoryAdminVm
+
+@{
+    ViewData["Title"] = "افزودن دسته بندی";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/category.css"/>
+}
+
+<form asp-action="Create">
+
+    <partial name="_CategoryForm"/>
+
+</form>

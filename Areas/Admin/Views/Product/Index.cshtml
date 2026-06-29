@@ -1,0 +1,189 @@
+@model OnlineShop.Admin.ViewModels.Product.ProductListAdminVm
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "محصولات";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/product.css"/>
+}
+
+<div class="page-header">
+
+    <h3>مدیریت محصولات</h3>
+
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i>
+        افزودن محصول
+    </a>
+
+</div>
+
+
+<div class="card filter-card">
+
+    <div class="card-body">
+
+        <form method="get">
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+
+                    <input class="form-control"
+                           name="Search"
+                           value="@Model.Query.Search"
+                           placeholder="جستجوی نام محصول">
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <select class="form-select"
+                            asp-for="Query.CategoryId"
+                            asp-items="Model.Categories">
+
+                        <option value="">همه دسته بندی ها</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <select class="form-select"
+                            name="PageSize">
+
+                        <option selected="@(Model.Query.PageSize==10)">10</option>
+                        <option selected="@(Model.Query.PageSize==20)">20</option>
+                        <option selected="@(Model.Query.PageSize==50)">50</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <button class="btn btn-primary w-100">
+                        جستجو
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div class="table-card">
+
+    <table class="table align-middle">
+
+        <thead>
+
+        <tr>
+            <th>تصویر</th>
+            <th>نام</th>
+            <th>دسته بندی</th>
+            <th>قیمت</th>
+            <th>موجودی</th>
+            <th>عملیات</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        @foreach (var item in Model.Products.Items)
+        {
+
+            <tr id="row-@item.Id">
+
+                <td>
+
+                    <img src="@item.ImageUrl"
+                         class="product-image">
+
+                </td>
+
+                <td>@item.Name</td>
+
+                <td>@item.CategoryName</td>
+
+                <td>
+                    @item.Price.ToString("N0")
+                    تومان
+                </td>
+
+                <td>
+
+                    @if (item.Stock > 10)
+                    {
+                        <span class="badge bg-success">
+                            @item.Stock
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">
+                            @item.Stock
+                        </span>
+                    }
+
+                </td>
+
+                <td>
+
+                    <div class="btn-group">
+
+                        <a asp-area="Admin"
+                           asp-controller="Product"
+                           asp-action="Details"
+                           asp-route-id="@item.Id"
+                           class="btn btn-outline-info">
+
+                            جزئیات
+
+                        </a>
+
+                        <a asp-area="Admin"
+                           asp-controller="Product"
+                           asp-action="Edit"
+                           asp-route-id="@item.Id"
+                           class="btn btn-outline-warning">
+
+                            ویرایش
+
+                        </a>
+
+                        <button class="btn btn-outline-danger delete-product"
+                                data-id="@item.Id">
+
+                            حذف
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/js/product.js"></script>
+}

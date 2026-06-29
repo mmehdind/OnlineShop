@@ -1,0 +1,100 @@
+@model OnlineShop.ViewModels.Auth.LoginVm
+
+@using OnlineShop.Common
+
+@{
+    ViewData["Title"] = SiteTexts.Navigation.Login;
+}
+
+<div class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="card shadow-lg auth-card">
+
+            <div class="auth-header">
+
+                <h2>@SiteTexts.Navigation.Login</h2>
+
+                <p>Welcome Back</p>
+
+            </div>
+
+            <div class="auth-body">
+
+                <form asp-action="Login" method="post">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Email"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label asp-for="Password"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Password"
+                               type="password"
+                               class="form-control" />
+
+                        <span asp-validation-for="Password"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary auth-btn w-100">
+
+                        @SiteTexts.Navigation.Login
+
+                    </button>
+
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["Error"]
+                        </div>
+                    }
+
+                </form>
+
+                <div class="auth-footer">
+
+                    <a asp-action="Register"
+                       class="auth-link">
+
+                        @SiteTexts.Auth.DontHaveAccount
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

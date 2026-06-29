@@ -1,0 +1,87 @@
+@model OnlineShop.ViewModels.Product.ProductListVm
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<link rel="stylesheet" href="~/css/product-index.css" />
+
+<div class="product-page">
+
+    <!-- FILTER BAR -->
+    <form method="get" class="filter-bar">
+
+        <input type="text"
+               name="Search"
+               value="@Model.Query.Search"
+               placeholder="Search products..."
+               class="form-input" />
+
+        <select name="CategoryId" class="form-select">
+
+            <option value="">All Categories</option>
+
+            @foreach (var cat in Model.Categories)
+            {
+                <option value="@cat.Value"
+                        selected="@cat.Selected">
+                    @cat.Text
+                </option>
+            }
+
+        </select>
+
+        <select name="Sort" class="form-select">
+
+            <option value="">Default</option>
+
+            <option value="newest" selected="@(Model.Query.Sort == "newest")">
+                Newest
+            </option>
+
+            <option value="price_asc" selected="@(Model.Query.Sort == "price_asc")">
+                Price ↑
+            </option>
+
+            <option value="price_desc" selected="@(Model.Query.Sort == "price_desc")">
+                Price ↓
+            </option>
+
+        </select>
+
+        <button type="submit" class="btn-primary">
+            Filter
+        </button>
+
+    </form>
+
+    <!-- PRODUCTS GRID -->
+    <div class="product-grid">
+
+        @foreach (var item in Model.Products.Items)
+        {
+            <partial name="_ProductCard" model="item" />
+        }
+
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+
+        @for (int i = 1; i <= Model.Products.TotalPages; i++)
+        {
+            <a asp-action="Index"
+               asp-route-PageNumber="@i"
+               asp-route-Search="@Model.Query.Search"
+               asp-route-CategoryId="@Model.Query.CategoryId"
+               asp-route-Sort="@Model.Query.Sort"
+               class="page @(i == Model.Products.PageNumber ? "active" : "")">
+
+                @i
+
+            </a>
+        }
+
+    </div>
+
+</div>

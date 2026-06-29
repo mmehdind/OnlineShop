@@ -1,0 +1,124 @@
+@model OnlineShop.ViewModels.Auth.RegisterVm
+
+@using OnlineShop.Common
+
+@{
+    ViewData["Title"] = SiteTexts.Navigation.Register;
+}
+
+<div class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="card shadow-lg auth-card">
+
+            <div class="auth-header">
+
+                <h2>@SiteTexts.Navigation.Register</h2>
+
+                <p>@SiteTexts.Navigation.CreateNewAccount</p>
+
+            </div>
+
+            <div class="auth-body">
+
+                <form asp-action="Register" method="post">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="FullName" class="form-label"></label>
+
+                        <input asp-for="FullName"
+                               class="form-control"
+                               placeholder="@SiteTexts.Navigation.FullName"
+                               autocomplete="name" />
+
+                        <span asp-validation-for="FullName"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Email" class="form-label"></label>
+
+                        <input asp-for="Email"
+                               class="form-control"
+                               placeholder="example@gmail.com"
+                               autocomplete="email" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Password" class="form-label"></label>
+
+                        <input asp-for="Password"
+                               class="form-control"
+                               autocomplete="new-password"
+                               placeholder="********" />
+
+                        <span asp-validation-for="Password"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label asp-for="ConfirmPassword"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="ConfirmPassword"
+                               class="form-control"
+                               autocomplete="new-password"
+                               placeholder="********" />
+
+                        <span asp-validation-for="ConfirmPassword"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary auth-btn w-100">
+
+                        @SiteTexts.Navigation.Register
+
+                    </button>
+
+                </form>
+
+                <div class="auth-footer mt-3 text-center">
+
+                    <a asp-action="Login"
+                       class="auth-link">
+
+                        @SiteTexts.Auth.AlreadyHaveAccount
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
