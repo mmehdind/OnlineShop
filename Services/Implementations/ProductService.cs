@@ -168,10 +168,39 @@ public class ProductService : IProductService
 
     public async Task UpdateAsync(UpdateProductDto dto)
     {
+        // 
+        Console.WriteLine("checkpoint Edit service");
+        // 
         var product = await _repo.GetByIdAsync(dto.Id);
 
         if (product == null)
             throw new Exception("Product not found");
+
+        foreach (var image in dto.Images)
+        {
+            if (!_fileService.IsImage(image))
+            {
+                throw new BusinessException(
+                    "Invalid image format.");
+            }
+
+            if (!_fileService.IsValidSize(image, 5 - dto.ProductImages.Count()))
+            {
+                throw new BusinessException(
+                    "Image size exceeds limit.");
+            }
+
+            var imageUrl =
+                await _fileService.UploadAsync(
+                    image,
+                    "products");
+
+            product.Images.Add(new ProductImage
+            {
+                ImageUrl = imageUrl,
+                IsMain = !product.Images.Any()
+            });
+        }
 
         product.Name = dto.Name;
         product.Description = dto.Description;

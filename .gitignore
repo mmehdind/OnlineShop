@@ -1,0 +1,40 @@
+# Build
+bin/
+obj/
+
+# VS Code
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# ASP.NET Core
+appsettings.Development.json
+
+# Environment variables
+.env
+.env.*
+
+
+# Node.js (در صورت استفاده)
+node_modules/
+
+# Publish
+publish/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Operating System
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Test Results
+TestResults/
+coverage/
+
+# uploade fils
+wwwroot/uploads/

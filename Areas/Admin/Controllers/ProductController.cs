@@ -71,12 +71,15 @@ public class ProductController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(UpdateProductVm vm)
     {
+        // 
+        Console.WriteLine("checkpoint Edit controler");
+        // 
         if (!ModelState.IsValid)
             return View(vm);
 
         await _adminProductService.UpdateAsync(vm);
 
-        return Ok();
+        return RedirectToAction(nameof(Index), new { area = "Admin" });
     }
 
     // DELETE

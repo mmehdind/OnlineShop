@@ -117,7 +117,7 @@ public class MappingProfile : Profile
 
         // AdminProductDTO → Entity
 
-        CreateMap<CreateProductAdminDto, Product>();
+        CreateMap<CreateProductAdminDto, Product>().ForMember(dest => dest.Images, opt => opt.Ignore());;
 
     }
 }

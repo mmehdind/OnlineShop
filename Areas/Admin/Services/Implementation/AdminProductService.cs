@@ -106,6 +106,8 @@ public class AdminProductService : IAdminProductService
     {
         var product = await _productService.GetByIdAsync(id);
 
+        var categories = await _categoryService.GetAllAsync();
+
         if (product == null)
             return null;
 
@@ -119,7 +121,12 @@ public class AdminProductService : IAdminProductService
             Price = product.Price,
             Stock = product.Stock,
             CategoryId = product.CategoryId,
-            ProductImages = images
+            ProductImages = images,
+            Categories = categories.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            })
         };
     }
 
@@ -128,6 +135,9 @@ public class AdminProductService : IAdminProductService
     // =========================
     public async Task UpdateAsync(UpdateProductVm vm)
     {
+        // 
+        Console.WriteLine("checkpoint Edit Admin service");
+        // 
         var dto = _mapper.Map<UpdateProductDto>(vm);
 
         await _productService.UpdateAsync(dto);
